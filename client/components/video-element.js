@@ -31,9 +31,6 @@ class VideoElement extends HTMLElement {
     if (name === 'data-downloading' && this.querySelector('.action.download')) {
       this.querySelector('.action.download').innerText = this.downloadStartedText
     }
-    if (name === 'data-summarizing' && this.querySelector('.action.summarize')) {
-      this.querySelector('.action.summarize').innerText = this.summaryStartedText
-    }
   }
 
   render () {
@@ -44,7 +41,6 @@ class VideoElement extends HTMLElement {
     this.classList.add('video')
     this.dataset.videoId = this.video.id
     this.dataset.date = this.video.publishedAt
-    this.dataset.summarized = this.video.summary ? 'true' : 'false'
     this.dataset.downloaded = this.video.downloaded ? 'true' : 'false'
     this.dataset.ignored = this.video.ignored ? 'true' : 'false'
 
@@ -77,11 +73,6 @@ class VideoElement extends HTMLElement {
         ${this.video.downloaded
           ? /* html */`<span tabindex="0"  class="action delete" data-video-id="${this.video.id}">🗑️ Delete</span>`
           : /* html */`<span tabindex="0"  class="action download" data-video-id="${this.video.id}">⬇️ Download</span>`}
-        ${store.get(store.useTLDWTubeKey)
-          /* html */? `<a target="_blank" href="https://tldw.tube/?v=${this.video.id}">📖 tldw.tube</a>`
-          : !this.video.summary
-          ? /* html */`<span tabindex="0"  class="action summarize" data-video-id="${this.video.id}">📖 Summarize</span>`
-          : /* html */`<span tabindex="0"  class="action show-summary" data-video-id="${this.video.id}">📖 Summary</span>`}
         <a href="https://www.youtube.com/watch?v=${this.video.id}" class="action open-externally" target="_blank">📺 external</a>
       </div>
     `
@@ -99,7 +90,6 @@ class VideoElement extends HTMLElement {
   registerEvents () {
     addClickListener(this.querySelector('.action.download'), this.downloadVideoHandler.bind(this))
     addClickListener(this.querySelector('.action.delete'), this.deleteVideoHandler.bind(this))
-    addClickListener(this.querySelector('.action.summarize'), this.summarizeVideoHandler.bind(this))
     addClickListener(this.querySelector('.action.show-summary'), this.showSummaryHandler.bind(this))
     addClickListener(this.querySelector('.action.ignore'), this.toggleIgnoreVideoHandler.bind(this))
     addClickListener(this.querySelector('.action.open-externally'), this.openExternallyHandler.bind(this))
@@ -110,7 +100,6 @@ class VideoElement extends HTMLElement {
   unregisterEvents () {
     removeClickListener(this.querySelector('.action.download'), this.downloadVideoHandler.bind(this))
     removeClickListener(this.querySelector('.action.delete'), this.deleteVideoHandler.bind(this))
-    removeClickListener(this.querySelector('.action.summarize'), this.summarizeVideoHandler.bind(this))
     removeClickListener(this.querySelector('.action.show-summary'), this.showSummaryHandler.bind(this))
     removeClickListener(this.querySelector('.action.ignore'), this.toggleIgnoreVideoHandler.bind(this))
     removeClickListener(this.querySelector('.action.open-externally'), this.openExternallyHandler.bind(this))
@@ -172,39 +161,6 @@ class VideoElement extends HTMLElement {
         this.render()
       })
       .catch((error) => console.error('Error deleting video:', error))
-  }
-
-  summarizeVideoHandler (event) {
-    event.preventDefault()
-
-    if (this.dataset.summarizing === 'true') return
-    this.dataset.summarizing = 'true'
-
-    event.target.innerText = this.summaryStartedText
-
-    addToast('Summarizing video...')
-
-    fetch('/api/summarize-video', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: this.video.id })
-    })
-      .catch((error) => console.error('Error starting summary:', error))
-  }
-
-  showSummaryHandler (event) {
-    event.preventDefault()
-    const video = this.video
-    if (video) {
-      document.querySelector('dialog#summary').showModal()
-      document.querySelector('dialog#summary div').innerHTML = /* html */`
-      <pre>${video.summary}</pre>
-      <details>
-        <summary>transcript</summary>
-        <pre>${video.transcript}</pre>
-      </details>
-      `
-    }
   }
 
   toggleIgnoreVideoHandler (event) {

@@ -498,7 +498,7 @@ body.searching [data-ignored="true"] {
 /* [data-ignored="true"] {
   display: none;
 } */
-#show-summarized-videos.active, #show-downloaded-videos.active, #show-ignored-videos.active {
+#show-downloaded-videos.active, #show-ignored-videos.active {
   background-color: var(--filter-button-active-bg);
   color: var(--filter-button-active-text);
 }
@@ -508,24 +508,11 @@ body.searching [data-ignored="true"] {
 .show-downloaded-videos [data-downloaded="true"] {
   display: block;
 }
-.show-summarized-videos [data-summarized="false"] {
-  display: none;
-}
-.show-summarized-videos [data-summarized="true"] {
-  display: block;
-}
 .show-ignored-videos [data-ignored="false"] {
   display: none;
 }
 .show-ignored-videos [data-ignored="true"] {
   display: block;
-}
-
-.show-downloaded-videos.show-summarized-videos [data-downloaded="true"][data-summarized="true"] {
-  display: block !important;
-}
-.show-downloaded-videos.show-summarized-videos [data-downloaded="false"][data-summarized="false"] {
-  display: none !important;
 }
 
 empty-state {

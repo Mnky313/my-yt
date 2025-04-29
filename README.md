@@ -18,7 +18,6 @@ A clean and minimal youtube frontend supported by yt-dlp, and optionally your lo
 - Native Google Chromecast support
 - Disable clickbait thumbnails
 - Play videos in background
-- Summarize video content using your local AI model (e.g. Ollama/LMStudio) or hosted provider (e.g. OpenAI, Anthropic)
 - Native Picture-in-Picture support
 - No dependencies (except for `nano-spawn`, which itself has no transient deps)
 - HTML/CSS only, no JS frameworks on client/server side
@@ -158,10 +157,6 @@ Makes requests using the chat completions API of your favorite LLM provider (eit
 ### [sse.js](https://github.com/christian-fei/my-yt/blob/main/lib/sse.js)
 
 Utility functions for Server-sent events
-
-### [subtitles-summary.js](https://github.com/christian-fei/my-yt/blob/main/lib/subtitles-summary.js)
-
-Summarizes video transcript using LLM provider
 
 ### [youtube.js](https://github.com/christian-fei/my-yt/blob/main/lib/youtube.js)
 
