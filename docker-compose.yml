@@ -1,14 +1,14 @@
 services:
   app:
-    build: .
+    build: https://github.com/Mnky313/my-yt.git
     container_name: my-yt
     working_dir: /app
     volumes:
-     - ./data:/app/data
+     - YouTube:/app/data
     ports:
-    - "3000:3000"
+    - "3333:3000"
     command: npm start
     # network_mode: host
 volumes:
-  data:
-    driver: local
+  YouTube:
+    external: true
