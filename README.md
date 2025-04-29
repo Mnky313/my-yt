@@ -45,8 +45,6 @@ You can ignore videos that you don't want to watch.
 
 You can search for videos based on your subscriptions.
 
-If you want, the app can also generate a summary of the video content using your local AI model or hosted provider.
-
 Additionally, in the settings page you can set the video quality of the downloaded videos, clean up disk space used, avoid seeing clickbait thumbnails and much more.
 
 
@@ -164,7 +162,7 @@ yt-dlp wrapper to download videos, get channel videos and video information and 
 
 ### [repository.js](https://github.com/christian-fei/my-yt/blob/main/lib/repository.js)
 
-Handles persistence of video information (set video as downloaded, summary, ignored, upserting videos, etc.)
+Handles persistence of video information (set video as downloaded, ignored, upserting videos, etc.)
 
 ### [client](https://github.com/christian-fei/my-yt/tree/main/client)
 

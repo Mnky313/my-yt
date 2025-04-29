@@ -443,18 +443,6 @@ details {
   border-radius: 3px;
 }
 
-#summary pre {
-  white-space: break-spaces;
-}
-
-summary {
-  cursor: pointer;
-}
-
-summary:hover {
-  color: var(--text-hover);
-}
-
 #notifications-container {
   position: fixed;
   bottom: 4em;

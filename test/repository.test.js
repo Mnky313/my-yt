@@ -92,12 +92,6 @@ describe('repository', () => {
     assert.equal(repo.getVideo('12345').transcript, 'This is the transcript for The Code')
   })
 
-  test('sets video summary', () => {
-    repo.upsertVideos([video1, video2])
-    repo.setVideoSummary('12345', 'This is the summary for The Code')
-    assert.equal(repo.getVideo('12345').summary, 'This is the summary for The Code')
-  })
-
   test('patches new video with addedAt', () => {
     const patchedVideo = repo.patchVideo(video1)
     assert.ok(patchedVideo.addedAt)

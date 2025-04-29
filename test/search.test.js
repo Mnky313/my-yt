@@ -23,8 +23,7 @@ test.beforeEach(() => {
       title: 'A video title',
       description: 'Wow nice description',
       downloaded: true,
-      ignored: false,
-      summary: 'some summary'
+      ignored: false
     },
     {
       id: '2',
@@ -32,8 +31,7 @@ test.beforeEach(() => {
       title: 'Another video title',
       description: 'What, another nice description',
       downloaded: false,
-      ignored: true,
-      summary: 'some summary'
+      ignored: true
     },
     {
       id: '3',
@@ -41,8 +39,7 @@ test.beforeEach(() => {
       title: 'WOW Another video title',
       description: "What, another nice description, that's cool",
       downloaded: true,
-      ignored: true,
-      summary: 'some summary'
+      ignored: true
     }
   ])
 })

@@ -7,7 +7,6 @@ class VideoElement extends HTMLElement {
   constructor () {
     super()
     this.downloadStartedText = '⚡️ Downloading..'
-    this.summaryStartedText = '⚡️ Summarizing..'
   }
 
   connectedCallback () {
@@ -90,7 +89,6 @@ class VideoElement extends HTMLElement {
   registerEvents () {
     addClickListener(this.querySelector('.action.download'), this.downloadVideoHandler.bind(this))
     addClickListener(this.querySelector('.action.delete'), this.deleteVideoHandler.bind(this))
-    addClickListener(this.querySelector('.action.show-summary'), this.showSummaryHandler.bind(this))
     addClickListener(this.querySelector('.action.ignore'), this.toggleIgnoreVideoHandler.bind(this))
     addClickListener(this.querySelector('.action.open-externally'), this.openExternallyHandler.bind(this))
     addClickListener(this.querySelector('.channel-name'), this.filterByChannelHandler.bind(this))
@@ -100,7 +98,6 @@ class VideoElement extends HTMLElement {
   unregisterEvents () {
     removeClickListener(this.querySelector('.action.download'), this.downloadVideoHandler.bind(this))
     removeClickListener(this.querySelector('.action.delete'), this.deleteVideoHandler.bind(this))
-    removeClickListener(this.querySelector('.action.show-summary'), this.showSummaryHandler.bind(this))
     removeClickListener(this.querySelector('.action.ignore'), this.toggleIgnoreVideoHandler.bind(this))
     removeClickListener(this.querySelector('.action.open-externally'), this.openExternallyHandler.bind(this))
     removeClickListener(this.querySelector('.channel-name'), this.filterByChannelHandler.bind(this))

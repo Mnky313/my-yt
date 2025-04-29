@@ -20,11 +20,8 @@ eventSource.onmessage = (message) => {
       if (!$state) { return console.warn('missing $state') }
       const $count = $state.querySelector('.count')
       const $downloading = $state.querySelector('.downloading')
-      const $summarizing = $state.querySelector('.summarizing')
       const downloadingCount = Object.keys(data.state.downloading || {}).length
       $downloading.innerText = `Downloading: ${downloadingCount}`
-      const summarizingCount = Object.keys(data.state.summarizing || {}).length
-      $summarizing.innerText = `Summarizing: ${summarizingCount}`
 
       setTimeout(() => {
         Object.keys(data.state.downloading || {}).forEach((videoId) => {
@@ -64,20 +61,6 @@ eventSource.onmessage = (message) => {
       })
       return
     }
-    if (data.type === 'summary-error' && data.videoId) {
-      const $videoElement = document.querySelector(`[data-video-id="${data.videoId}"]`)
-      $videoElement && $videoElement.render && $videoElement.render()
-      return
-    }
-    if (data.type === 'summary' && data.videoId && data.summary && data.transcript) {
-      ;[...document.querySelectorAll(`[data-video-id="${data.videoId}"]`)].forEach($video => {
-        if (!$video.dataset.data) return
-        const videoData = JSON.parse($video.dataset.data)
-        Object.assign(videoData, { summary: data.summary, transcript: data.transcript })
-        $video.dataset.data = JSON.stringify(videoData)
-      })
-      return
-    }
     if (data.type === 'downloaded' && data.videoId && data.downloaded !== undefined) {
       ;[...document.querySelectorAll(`[data-video-id="${data.videoId}"]`)].forEach($video => {
         if (!$video.dataset.data) return
@@ -101,21 +84,4 @@ eventSource.onmessage = (message) => {
   } catch (err) {
     console.error('sse parse error', err)
   }
-}
-
-const $summary = document.querySelector('dialog#summary')
-const $closeSummary = $summary.querySelector('button')
-$closeSummary.addEventListener('click', () => $summary.close())
-$summary.addEventListener('close', () => {})
-
-observeDialogOpenPreventScroll($summary)
-
-function observeDialogOpenPreventScroll (dialog) {
-  new MutationObserver((mutationList, observer) => {
-    for (const mutation of mutationList) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
-        document.body.classList[mutation.target.open ? 'add' : 'remove']('dialog-opened')
-      }
-    }
-  }).observe(dialog, { attributes: true, childList: true, subtree: true })
 }
